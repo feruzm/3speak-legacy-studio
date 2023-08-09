@@ -382,8 +382,10 @@ router.get(
             const { data: info } = await Axios.get(
               `${global.APP_ENCODER_ENDPOINT}/api/v0/gateway/jobstatus/${video.job_id}`
             );
-            console.log(info);
+            //console.log(info);
             video.encoding_status = info;
+            video.encodingProgress = info.job.progress.pct || info.job.progress.download_pct;
+            
             const job = info.job;
             if (job.status === "complete") {
               video.visible_status = "complete";
